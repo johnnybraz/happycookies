@@ -287,32 +287,43 @@
   margin-bottom: 10px;
 }
 
+.address-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 .edit-address-btn {
-  background: none;
-  border: none;
+  background-color: var(--primary-color);
   color: var(--secondary-color);
-  text-decoration: underline;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  padding: 10px 20px;
   cursor: pointer;
-  padding: 0;
+  transition: all 0.3s ease;
   font-size: 0.9rem;
 }
 
 .edit-address-btn:hover {
-  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  color: white;
 }
 
 .delete-address-btn {
-  background: none;
-  border: none;
+  background-color: white;
   color: var(--secondary-color);
-  text-decoration: underline;
+  border: 2px solid var(--primary-color);
+  border-radius: 30px;
+  font-weight: 600;
+  padding: 10px 20px;
   cursor: pointer;
-  padding: 15px;
+  transition: all 0.3s ease;
   font-size: 0.9rem;
 }
 
 .delete-address-btn:hover {
-  color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 /* Modal de endereço */
