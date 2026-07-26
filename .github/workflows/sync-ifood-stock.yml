@@ -1,8 +1,12 @@
 name: Sincronizar estoque com iFood
 
 on:
-  schedule:
-    - cron: '*/15 * * * *'
+  # O agendamento automático (cron) fica desligado até termos os segredos
+  # configurados e o acesso de produção do iFood aprovado — enquanto isso,
+  # rodar sem segredo só falha e manda e-mail de erro a cada execução.
+  # Reativar descomentando as linhas abaixo quando estiver tudo pronto:
+  # schedule:
+  #   - cron: '*/15 * * * *'
   workflow_dispatch: {}
 
 jobs:
