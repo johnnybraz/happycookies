@@ -183,10 +183,10 @@ const CheckoutModal = ({ isOpen, onClose }) => {
     lines.push('', `Subtotal: R$ ${formatCurrency(getTotalPrice())}`);
 
     if (isDeliveryFeeKnown) {
-      lines.push(`Frete: R$ ${formatCurrency(deliveryFee)}`);
+      lines.push(`Entrega: R$ ${formatCurrency(deliveryFee)}`);
       lines.push(`Total: R$ ${formatCurrency(orderTotal)}`);
     } else {
-      lines.push('Frete: a combinar');
+      lines.push('Entrega: a combinar');
     }
 
     lines.push('', '*Entrega no endereço:*');
@@ -307,7 +307,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 {isDeliveryFeeKnown ? (
                   <>
                     <div className="receipt-total-line">
-                      <span>Frete:</span>
+                      <span>Entrega:</span>
                       <span>R$ {formatCurrency(deliveryFee)}</span>
                     </div>
                     <div className="receipt-total-line">
@@ -318,7 +318,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 ) : (
                   <div className="receipt-delivery-message">
                     <p style={{ color: 'red', fontWeight: 'bold', margin: '10px 0' }}>
-                        FRETE A COMBINAR
+                        ENTREGA A COMBINAR
                     </p>
                   </div>
                 )}
@@ -403,7 +403,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                     <p><strong>Bairro:</strong> {address.neighborhood}</p>
                     <p><strong>Cidade/UF:</strong> {address.city}/{address.state}</p>
                     <p>
-                      <strong>Frete:</strong>{' '}
+                      <strong>Entrega:</strong>{' '}
                       {isCalculatingFee
                         ? 'Calculando...'
                         : isDeliveryFeeKnown
@@ -433,7 +433,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 <span>R$ {getTotalPrice().toFixed(2)}</span>
               </div>
               <div className="summary-row">
-                <span>Frete:</span>
+                <span>Entrega:</span>
                 <span className={!isDeliveryFeeKnown ? 'shipping-calculate' : ''}>
                   {isCalculatingFee ? 'Calculando...' : isDeliveryFeeKnown ? `R$ ${formatCurrency(deliveryFee)}` : 'A combinar'}
                 </span>
@@ -454,7 +454,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                   onClick={handleCheckout}
                   disabled={!address.street || isCalculatingFee}
                 >
-                  {isCalculatingFee ? 'Calculando frete...' : 'Finalizar Pedido'}
+                  {isCalculatingFee ? 'Calculando entrega...' : 'Finalizar Pedido'}
                 </button>
                 <button className="continue-shopping" onClick={onClose}>
                   Continuar Comprando
