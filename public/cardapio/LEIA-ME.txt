@@ -1,0 +1,6 @@
+Coloque aqui o arquivo do cardápio em PDF, com o nome exato: cardapio.pdf
+
+O botão "Ver Cardápio" da página /links aponta para:
+/cardapio/cardapio.pdf
+
+Quando o cliente clicar, o PDF abre direto no navegador dele (sem precisar baixar) — não precisa fazer nada além de colocar o arquivo aqui com esse nome.
