@@ -8,7 +8,7 @@ import './Links.css';
 const links = [
   {
     label: 'Ver Cardápio',
-    href: '/cardapio/cardapio.pdf',
+    href: '/cardapio/cardapio.png',
     icon: <FaBookOpen />,
     external: true
   },

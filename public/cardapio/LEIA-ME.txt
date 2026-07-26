@@ -1,6 +1,8 @@
-Coloque aqui o arquivo do cardápio em PDF, com o nome exato: cardapio.pdf
+Cardápio atual: cardapio.png
 
-O botão "Ver Cardápio" da página /links aponta para:
-/cardapio/cardapio.pdf
+Sempre que for atualizar o cardápio, SUBSTITUA o conteúdo deste mesmo
+arquivo "cardapio.png" (não renomeie com o mês/ano) — o botão "Ver Cardápio"
+do site aponta exatamente para esse nome. Se o nome mudar, o link quebra.
 
-Quando o cliente clicar, o PDF abre direto no navegador dele (sem precisar baixar) — não precisa fazer nada além de colocar o arquivo aqui com esse nome.
+Aceita imagem (PNG/JPG) ou PDF. Se um dia trocar para PDF, me avise para eu
+ajustar o link (de "cardapio.png" para "cardapio.pdf").
