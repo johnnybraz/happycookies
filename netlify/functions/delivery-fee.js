@@ -1,8 +1,11 @@
-// Calcula o frete a partir da distância (linha reta) entre o endereço do cliente
-// e o endereço fixo da loja, usando faixas de km cadastradas no Supabase (tabela
-// `delivery_zones`). Geocodificação via Photon (photon.komoot.io) — serviço aberto
-// baseado no OpenStreetMap, gratuito e sem necessidade de chave/cartão. Não tem SLA
-// garantido; se falhar, cai no fallback "frete a combinar pelo WhatsApp".
+// Calcula o frete a partir da distância de ROTA (de moto/carro, não em linha
+// reta) entre o endereço do cliente e o endereço fixo da loja, usando faixas
+// de km cadastradas no Supabase (tabela `delivery_zones`).
+// Geocodificação via Photon e cálculo de rota via OSRM — ambos serviços
+// abertos baseados no OpenStreetMap, gratuitos e sem necessidade de
+// chave/cartão. Nenhum dos dois tem SLA garantido; se falharem, a distância
+// cai para linha reta (Haversine) como aproximação, e se nada funcionar, cai
+// no fallback "frete a combinar pelo WhatsApp".
 
 // Coordenadas de "Rua Narciso Nicolosi, 652 - Jardim Tropical - Ourinhos/SP",
 // obtidas via Photon.
@@ -99,6 +102,21 @@ async function geocodeAddress(address, typedStreet) {
   return { lat, lng };
 }
 
+// Distância real percorrendo as ruas (rota de moto/carro), em km. Usa o OSRM
+// (servidor público de demonstração, gratuito). Se falhar, devolve null e
+// quem chamou usa a distância em linha reta como aproximação.
+async function routeDistanceKm(lat1, lng1, lat2, lng2) {
+  try {
+    const url = `https://router.project-osrm.org/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=false`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const meters = data.routes?.[0]?.distance;
+    return typeof meters === 'number' ? meters / 1000 : null;
+  } catch (error) {
+    return null;
+  }
+}
+
 async function fetchDeliveryZones() {
   const url = `${SUPABASE_URL}/rest/v1/delivery_zones?select=max_km,fee&order=max_km.asc`;
   const response = await fetch(url, {
@@ -137,7 +155,10 @@ exports.handler = async (event) => {
       return { statusCode: 200, body: JSON.stringify({ fee: null, reason: 'address_not_found' }) };
     }
 
-    const distanceKm = haversineKm(STORE_LAT, STORE_LNG, location.lat, location.lng);
+    const distanceKm =
+      (await routeDistanceKm(STORE_LAT, STORE_LNG, location.lat, location.lng)) ??
+      haversineKm(STORE_LAT, STORE_LNG, location.lat, location.lng);
+
     const zones = await fetchDeliveryZones();
     const zone = zones.find(z => distanceKm <= Number(z.max_km));
 
