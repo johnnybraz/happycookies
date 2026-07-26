@@ -1,0 +1,83 @@
+.ready-to-order {
+  background-color: var(--secondary-color);
+  padding: 60px 0;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px; /* Adicionando espaço entre esta seção e o footer */
+}
+
+.ready-to-order-title {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.ready-to-order-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  color: white;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.order-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.order-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  min-width: 250px;
+}
+
+.button-icon {
+  margin-right: 10px;
+  font-size: 1.3rem;
+}
+
+.whatsapp-button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.whatsapp-button:hover {
+  background-color: #e99fc3;
+  transform: translateY(-3px);
+}
+
+.ifood-button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.ifood-button:hover {
+  background-color: #e99fc3;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .ready-to-order-title {
+    font-size: 2rem;
+  }
+  
+  .order-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+.section-spacer {
+  height: 30px;
+  background-color: #fff;
+}

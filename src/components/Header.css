@@ -1,0 +1,204 @@
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.cart-icon {
+  margin-left: 20px;
+  position: relative;
+}
+
+.cart-icon a {
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.cart-icon a:hover {
+  color: rgb(119, 119, 119);
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  font-size: 0.7rem;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .header .container {
+    padding: 10px 15px;
+  }
+  
+  .logo img {
+    max-width: 120px;
+  }
+  
+  .main-nav {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+  }
+  
+  .main-nav.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+  }
+  
+  .close-menu-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 101;
+  }
+  
+  .main-nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Reduzindo o tamanho do header */
+  .header {
+    padding: 5px 0; /* Reduzindo o padding vertical */
+  }
+  
+  .header .container {
+    padding: 0 15px; /* Reduzindo o padding horizontal */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Adicionado para posicionamento absoluto do carrinho */
+  }
+  
+  /* Reduzindo o tamanho do logo e posicionando à esquerda */
+  .imgLogo{
+    position: relative;
+    right: 150px;
+    margin-right: auto;
+  }
+  
+  .logo img {
+    max-height: 60px; /* Altura máxima reduzida */
+    width: auto;
+  }
+  
+  /* Ajustando o tamanho dos links de navegação */
+  .main-nav ul li a {
+    font-size: 0.9rem; /* Fonte menor */
+    padding: 8px 12px; /* Padding menor */
+  }
+  
+  /* Ajustando o ícone do carrinho */
+  .cart-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 0;
+  }
+  
+  /* Ajustando o botão de menu mobile */
+  .mobile-menu-btn {
+    font-size: 1.2rem; /* Ícone menor */
+    margin-left: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    
+  }
+  
+  .main-nav {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+  }
+  
+  .main-nav.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+  }
+  
+  .close-menu-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 101;
+  }
+  
+  .main-nav ul {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Removendo a duplicação de código para max-width: 480px, já que agora usamos o mesmo estilo */
+@media (max-width: 480px) {
+  /* Ajustes específicos apenas para telas muito pequenas, se necessário */
+}
+   
+  .cart-icon {
+    margin-right: 50px;
+  }
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 99;
+}
+

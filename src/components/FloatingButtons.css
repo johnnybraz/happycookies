@@ -1,0 +1,61 @@
+.floating-buttons {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 9999;
+}
+
+.floating-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+}
+
+.whatsapp-btn {
+  background-color: #25D366;
+  color: white;
+}
+
+.ifood-btn {
+  background-color: #EA1D2C;
+  color: white;
+}
+
+.floating-btn svg,
+.floating-btn img {
+  width: 30px;
+  height: 30px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .floating-buttons {
+    right: 15px;
+    bottom: 15px;
+    gap: 10px;
+  }
+  
+  .floating-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .floating-btn svg,
+  .floating-btn img {
+    width: 25px;
+    height: 25px;
+  }
+}
