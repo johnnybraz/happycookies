@@ -18,7 +18,7 @@ function AppLayout() {
         <Route path="/" element={<Home />} />
         <Route path="/links" element={<Links />} />
       </Routes>
-      {!isLinksPage && <Footer />}
+      <Footer />
       {!isLinksPage && <FloatingButtons />}
     </>
   );
