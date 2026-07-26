@@ -1,0 +1,25 @@
+name: Sincronizar estoque com iFood
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Rodar sincronização
+        env:
+          IFOOD_CLIENT_ID: ${{ secrets.IFOOD_CLIENT_ID }}
+          IFOOD_CLIENT_SECRET: ${{ secrets.IFOOD_CLIENT_SECRET }}
+          IFOOD_MERCHANT_ID: ${{ secrets.IFOOD_MERCHANT_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/sync-ifood-stock.js
