@@ -28,7 +28,57 @@ function haversineKm(lat1, lng1, lat2, lng2) {
   return R * c;
 }
 
-async function geocodeAddress(address) {
+const STREET_STOPWORDS = new Set([
+  'rua', 'r', 'avenida', 'av', 'alameda', 'al', 'travessa', 'praca', 'praça',
+  'rodovia', 'estrada', 'das', 'dos', 'da', 'do', 'de', 'ourinhos', 'sp', 'brasil'
+]);
+
+function normalizeTokens(text) {
+  return (text || '')
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '') // remove acentos
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter(token => token && !STREET_STOPWORDS.has(token));
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      dp[i][j] = a[i - 1] === b[j - 1]
+        ? dp[i - 1][j - 1]
+        : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+    }
+  }
+  return dp[a.length][b.length];
+}
+
+// Duas palavras "batem" se forem iguais ou só tiverem um pequeno erro de
+// digitação/grafia (tolerância cresce um pouco com o tamanho da palavra).
+function tokensMatch(a, b) {
+  if (a === b) return true;
+  const maxDistance = Math.max(1, Math.floor(Math.max(a.length, b.length) * 0.2));
+  return levenshtein(a, b) <= maxDistance;
+}
+
+// Confere se a maioria das palavras da rua digitada tem uma palavra parecida
+// no nome encontrado — evita aceitar uma rua que só coincide numa palavra
+// comum, mas que na real é outro lugar da cidade (já causou frete errado).
+function looksLikeSameStreet(typedStreet, foundName) {
+  const typedTokens = normalizeTokens(typedStreet);
+  const foundTokens = normalizeTokens(foundName);
+  if (typedTokens.length === 0 || foundTokens.length === 0) return true;
+
+  const matchedCount = typedTokens.filter(
+    typedToken => foundTokens.some(foundToken => tokensMatch(typedToken, foundToken))
+  ).length;
+
+  return matchedCount / typedTokens.length >= 0.5;
+}
+
+async function geocodeAddress(address, typedStreet) {
   const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(address)}&lat=${STORE_LAT}&lon=${STORE_LNG}&limit=1`;
   const response = await fetch(url, {
     headers: { 'User-Agent': 'HappyCookies/1.0 (atendimento.happycookies@gmail.com)' }
@@ -40,6 +90,10 @@ async function geocodeAddress(address) {
 
   const city = (feature.properties.city || '').toLowerCase();
   if (city && city !== 'ourinhos') return null;
+
+  if (!looksLikeSameStreet(typedStreet, feature.properties.name)) {
+    return null;
+  }
 
   const [lng, lat] = feature.geometry.coordinates;
   return { lat, lng };
@@ -64,13 +118,21 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { street, city, state } = JSON.parse(event.body || '{}');
-    // O Photon funciona melhor como busca livre (tipo um campo de pesquisa) do
-    // que como parser de endereço estruturado — número e bairro juntos tendem a
-    // confundir a busca sem ganhar precisão real (a zona de frete já é por km).
-    const fullAddress = [street, city, state, 'Brasil'].filter(Boolean).join(' ');
+    const { street, city, state, lat, lng } = JSON.parse(event.body || '{}');
 
-    const location = await geocodeAddress(fullAddress);
+    let location;
+    if (typeof lat === 'number' && typeof lng === 'number') {
+      // Localização real do celular do cliente (GPS) — a mais confiável,
+      // não depende de adivinhar o endereço.
+      location = { lat, lng };
+    } else {
+      // O Photon funciona melhor como busca livre (tipo um campo de pesquisa) do
+      // que como parser de endereço estruturado — número e bairro juntos tendem a
+      // confundir a busca sem ganhar precisão real (a zona de frete já é por km).
+      const fullAddress = [street, city, state, 'Brasil'].filter(Boolean).join(' ');
+      location = await geocodeAddress(fullAddress, street);
+    }
+
     if (!location) {
       return { statusCode: 200, body: JSON.stringify({ fee: null, reason: 'address_not_found' }) };
     }

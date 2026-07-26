@@ -37,18 +37,36 @@ const CheckoutModal = ({ isOpen, onClose }) => {
   const isCalculatingFee = feeStatus === 'loading';
   const orderTotal = getTotalPrice() + (deliveryFee || 0);
 
+  // Pede a localização real do navegador/celular do cliente. É mais precisa
+  // que adivinhar pelo endereço digitado. Se o cliente não tiver GPS ou negar
+  // a permissão, resolve(null) e caímos no cálculo por endereço.
+  const getBrowserLocation = () => {
+    return new Promise(resolve => {
+      if (!navigator.geolocation) {
+        resolve(null);
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        position => resolve({ lat: position.coords.latitude, lng: position.coords.longitude }),
+        () => resolve(null),
+        { timeout: 8000, maximumAge: 5 * 60 * 1000 }
+      );
+    });
+  };
+
   const calculateDeliveryFee = async () => {
     setFeeStatus('loading');
     try {
+      const location = await getBrowserLocation();
+
       const response = await fetch('/.netlify/functions/delivery-fee', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           street: address.street,
-          number: address.number,
-          neighborhood: address.neighborhood,
           city: address.city,
-          state: address.state
+          state: address.state,
+          ...(location ? { lat: location.lat, lng: location.lng } : {})
         })
       });
 
