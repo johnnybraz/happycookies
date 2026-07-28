@@ -11,8 +11,8 @@ const Home = () => {
       <section id="home" className="banner">
         <div className="container">
           <div className="banner-content">
-            <h1>Happy Cookies</h1>
-            <p>Experimente nossos cookies feitos com ingredientes selecionados e muito amor</p>
+            <h1>Happy Cookies — Cookies Artesanais em Ourinhos/SP</h1>
+            <p>Cookies artesanais feitos à mão em Ourinhos, com ingredientes selecionados e muito amor. Peça com delivery pelo site, WhatsApp ou iFood.</p>
             <p style={{fontWeight:"600"}}>Porque felicidade tem sabor de Cookie!</p>
             
           </div>

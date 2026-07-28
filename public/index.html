@@ -7,31 +7,57 @@
     <meta name="theme-color" content="#00238d" />
     
     <!-- Meta tags básicas para SEO -->
-    <title>Happy Cookies | Cookies Artesanais</title>
-    <meta name="description" content="Delivery de cookies artesanais, açaí e sobremesas em Ourinhos. Entrega em até 60 minutos. Peça pelo WhatsApp ou iFood!" />
-    <meta name="keywords" content="cookies artesanais, açaí, sobremesas, delivery, Ourinhos, entrega rápida, doces, bolo de pote, doces finos" />
-    
+    <title>Happy Cookies | Cookies Artesanais em Ourinhos/SP</title>
+    <meta name="description" content="Cookies artesanais recheados, marmitinhas e bebidas com delivery em Ourinhos/SP. Peça pelo site, WhatsApp ou iFood!" />
+    <meta name="keywords" content="cookies Ourinhos, cookies artesanais Ourinhos, delivery de cookies, cookies recheados, marmitinha de cookie, doces Ourinhos, confeitaria Ourinhos" />
+    <link rel="canonical" href="https://happycookies.site/" />
+
     <!-- Meta tags para Open Graph (Facebook, Instagram) -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://happycookies.com.br" />
-    <meta property="og:title" content="Happy Cookies | Cookies Artesanais" />
-    <meta property="og:description" content="Cookies quentinhos, açaí cremoso e sobremesas deliciosas com entrega em até 60 minutos em Ourinhos. Peça agora!" />
-    <meta property="og:image" content="%PUBLIC_URL%/images/og-image.jpg" />
+    <meta property="og:url" content="https://happycookies.site/" />
+    <meta property="og:title" content="Happy Cookies | Cookies Artesanais em Ourinhos/SP" />
+    <meta property="og:description" content="Cookies artesanais recheados, marmitinhas e bebidas com delivery em Ourinhos/SP. Peça pelo site, WhatsApp ou iFood!" />
+    <meta property="og:image" content="https://happycookies.site/images/sobre.jpg" />
     <meta property="og:locale" content="pt_BR" />
-    
+
     <!-- Meta tags para Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Happy Cookies | Cookies Artesanais e Açaí em Ourinhos" />
-    <meta name="twitter:description" content="Cookies quentinhos, açaí cremoso e sobremesas deliciosas com entrega em até 60 minutos em Ourinhos. Peça agora!" />
-    <meta name="twitter:image" content="%PUBLIC_URL%/images/og-image.jpg" />
-    
+    <meta name="twitter:title" content="Happy Cookies | Cookies Artesanais em Ourinhos/SP" />
+    <meta name="twitter:description" content="Cookies artesanais recheados, marmitinhas e bebidas com delivery em Ourinhos/SP. Peça pelo site, WhatsApp ou iFood!" />
+    <meta name="twitter:image" content="https://happycookies.site/images/sobre.jpg" />
+
     <!-- Meta tags adicionais -->
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Happy Cookies" />
     <meta name="geo.region" content="BR-SP" />
     <meta name="geo.placename" content="Ourinhos" />
-    
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <!-- Dados estruturados para o Google entender que é um negócio local de Ourinhos -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Bakery",
+      "name": "Happy Cookies",
+      "image": "https://happycookies.site/images/sobre.jpg",
+      "url": "https://happycookies.site/",
+      "telephone": "+5514998684409",
+      "priceRange": "R$",
+      "servesCuisine": "Cookies, Doces, Sobremesas",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ourinhos",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "areaServed": "Ourinhos, SP",
+      "sameAs": [
+        "https://www.instagram.com/happy.cookie.s/",
+        "https://www.ifood.com.br/delivery/ourinhos-sp/happy-cookies-nova-ourinhos/1709644f-67a5-4bae-b5f4-4215126ad823"
+      ]
+    }
+    </script>
+
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/images/favicon.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
     <!-- Meta Pixel Code -->
@@ -59,6 +85,3 @@
     <!-- Restante do seu body -->
   </body>
 </html>
-
-<!-- Remova esta linha duplicada -->
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
